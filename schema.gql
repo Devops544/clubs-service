@@ -1,0 +1,2052 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Additional services offered by clubs"""
+enum AdditionalService {
+  BAR
+  CHANGING_ROOM
+  COACHING
+  DRINKS
+  FOOD
+  HOTEL
+  HOT_SHOWER
+  KIDS_ROOM
+  LOCKER_ROOM
+  MASSAGE
+  OTHER
+  PARKING
+  PHYSIOTHERAPY
+  PRO_SHOP
+  RESTAURANT
+  WIFI
+}
+
+type Amenity {
+  bar: Boolean!
+  changingRoom: Boolean!
+  clubId: String!
+  createdAt: DateTime!
+  drinks: Boolean!
+  food: Boolean!
+  hotShower: Boolean!
+  hotel: Boolean!
+  id: ID!
+  kidsRoom: Boolean!
+  restaurant: Boolean!
+  updatedAt: DateTime!
+  wifi: Boolean!
+}
+
+type AvailableDay {
+  day: DayOfWeek!
+  isOpen: Boolean!
+  timeSlots: [WorkingHoursTimeSlot!]
+}
+
+type CalendarSettings {
+  """Cancellation buffer in hours"""
+  cancellation_buffer_in_hours: Int!
+
+  """Default interval in minutes"""
+  default_interval_in_mins: Int!
+  firstDayOfWeek: DayOfWeek!
+
+  """Minimum booking time in minutes"""
+  min_booking_time_in_mins: Int!
+
+  """Show booking for in weeks"""
+  show_booking_for_in_weeks: String!
+}
+
+input ClubFieldFilter {
+  """Field name to filter by"""
+  field: String!
+
+  """Filter operator (default: equals)"""
+  operator: FilterOperator = EQUALS
+
+  """Value to filter by"""
+  value: String!
+}
+
+input ClubFilter {
+  additionalServices: [String!]
+  amenityId: String
+  byInvoice: Boolean
+  chainId: String
+  clubId: String
+  coachId: String
+  completedSteps: [SetupStep!]
+  currency: String
+  currentStep: SetupStep
+  description: String
+  enableAcademyManagement: Boolean
+  enableClassBookings: Boolean
+  enableEventManagement: Boolean
+  enableLeagueTournamentManagement: Boolean
+  enableOnlineBookings: Boolean
+  enableOpenMatches: Boolean
+  galleryImages: [String!]
+  id: String
+  isPartOfChain: Boolean
+  lastSavedAt: String
+  locationContactId: String
+  logo: String
+  onlinePayment: Boolean
+  onsitePayment: Boolean
+  resourceIds: [String!]
+  setupStatus: SetupStatus
+  sports: [String!]
+  title: String
+  typeOfClub: String
+  workingHoursCalendarId: String
+}
+
+input ClubMultiFieldQueryInput {
+  """Array of field filters"""
+  filters: [ClubFieldFilter!]!
+
+  """Relations to include in the response"""
+  relations: [String!]
+}
+
+"""Type of club ownership for team member"""
+enum ClubOwnerType {
+  ADMIN
+  CO_OWNER
+  MANAGER
+  MEMBER
+  OWNER
+}
+
+type ClubResource {
+  clubId: String!
+  color: String!
+  createdAt: DateTime!
+  description: String
+  enableOnlineBooking: Boolean!
+  id: ID!
+  note: String
+  property: ResourceProperty!
+
+  """Resource service type"""
+  service: ResourceServiceType!
+  status: ResourceStatus!
+  title: String!
+  type: ResourceType!
+  updatedAt: DateTime!
+}
+
+type ClubSetup {
+  additionalServices: [AdditionalService!]
+  amenity: Amenity
+  byInvoice: Boolean!
+  chainId: String
+  clubDescription: String
+  coaches: [Coach!]
+  completedSteps: [SetupStep!]
+  currency: String
+  currentStep: SetupStep
+  enableAcademyManagement: Boolean!
+  enableClassBookings: Boolean!
+  enableEventManagement: Boolean!
+  enableLeagueTournamentManagement: Boolean!
+  enableOnlineBookings: Boolean!
+  enableOpenMatches: Boolean!
+  galleryImages: [String!]
+  id: ID!
+  isPartOfChain: Boolean
+  lastSavedAt: DateTime
+  locationContact: LocationContact
+  memberships: [Membership!]
+  onlinePayment: Boolean!
+  onsitePayment: Boolean!
+  pricing: [Pricing!]
+  promocodes: [PricingPromoCode!]
+  resources: [ClubResource!]
+  setupCreatedAt: DateTime!
+  setupLogo: String
+  setupSports: [SportsType!]
+  setupStatus: SetupStatus
+  setupUpdatedAt: DateTime!
+  teamMembers: [TeamMember!]
+  title: String!
+  typeOfClub: String
+  userGroups: [ClubUserGroup!]
+  workingHoursCalendar: WorkingHoursCalendar
+}
+
+type ClubUserGroup {
+  """Owning club id"""
+  clubId: String!
+
+  """Hex color used to represent the group"""
+  color: String!
+  createdAt: DateTime!
+
+  """Fixed discount value as percentage string e.g. 10% or number 10"""
+  fixedDiscount: Float
+  id: ID!
+
+  """Maximum number of customers allowed in group"""
+  maxCustomers: Float
+
+  """Services this group applies to"""
+  services: [String!]!
+
+  """Current status of the group"""
+  status: UserGroupStatus!
+
+  """User group title"""
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Coach {
+  """Full address of the coach"""
+  address: String
+
+  """Weekly availability schedule"""
+  availability: [CoachAvailableDay!]
+  avatar: String
+
+  """City where the coach is located"""
+  city: String
+  clubId: String!
+
+  """Country where the coach is located"""
+  country: String
+  createdAt: DateTime!
+
+  """Education background of the coach"""
+  education: String
+  email: String!
+
+  """Experience categories with date ranges"""
+  experienceCategories: [CoachExperienceCategory!]
+
+  """Gender of the coach"""
+  gender: CoachGenderType
+
+  """Holiday schedule and special availability (JSON string)"""
+  holidaySchedule: String
+  id: ID!
+
+  """Languages spoken with proficiency levels"""
+  languages: [CoachLanguageProficiency!]
+  name: String!
+
+  """Whether online booking is enabled for this coach"""
+  onlineBookingEnabled: Boolean
+  phone: String
+  phoneCountryCode: String
+
+  """Assigned resources/courts for the coach"""
+  resources: String
+
+  """Services the coach provides"""
+  services: [String!]!
+  surname: String!
+  updatedAt: DateTime!
+
+  """Work experience description"""
+  workExperience: String
+}
+
+type CoachAvailableDay {
+  day: String!
+  isOpen: Boolean!
+  timeSlots: [CoachWorkingHoursTimeSlot!]
+}
+
+input CoachAvailableDayInput {
+  day: String!
+  isOpen: Boolean!
+  timeSlots: [CoachWorkingHoursTimeSlotInput!]
+}
+
+type CoachClass {
+  clubId: String!
+
+  """Array of coach assignments"""
+  coach: [CoachClassAssignment!]!
+  createdAt: DateTime!
+
+  """Array of group IDs"""
+  group: [String!]!
+  id: ID!
+  price: Float!
+
+  """Price calculation type"""
+  priceType: PriceType!
+
+  """Array of resource IDs"""
+  resource: [String!]!
+
+  """Array of service IDs"""
+  service: [String!]!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type CoachClassAssignment {
+  addToBalance: Boolean!
+  coachId: String!
+  salary: Float!
+}
+
+input CoachClassAssignmentInput {
+  addToBalance: Boolean!
+  coachId: String!
+  salary: Float!
+}
+
+input CoachClassFilterInput {
+  clubId: String!
+  coachIds: [String!]
+  group: [String!]
+  limit: Int = 10
+  maxPrice: Int
+  minPrice: Int
+  offset: Int = 0
+  priceType: PriceType
+  resource: [String!]
+  service: [String!]
+  title: String
+}
+
+type CoachExperienceCategory {
+  endDate: String
+  name: String!
+  startDate: String!
+}
+
+input CoachExperienceCategoryInput {
+  endDate: String
+  name: String!
+  startDate: String!
+}
+
+input CoachFilterInput {
+  """Filter by city"""
+  city: String
+
+  """Filter by club ID"""
+  clubId: String
+
+  """Filter by country"""
+  country: String
+
+  """Filter by gender"""
+  gender: CoachGenderType
+
+  """Search text for name, surname, email"""
+  searchText: String
+
+  """Filter by service IDs"""
+  services: [String!]
+}
+
+"""Gender of the coach"""
+enum CoachGenderType {
+  FEMALE
+  MALE
+  OTHER
+}
+
+"""Language proficiency level"""
+enum CoachLanguageLevel {
+  ADVANCED
+  BEGINNER
+  INTERMEDIATE
+  NATIVE
+}
+
+type CoachLanguageProficiency {
+  language: String!
+  level: CoachLanguageLevel!
+}
+
+input CoachLanguageProficiencyInput {
+  language: String!
+  level: CoachLanguageLevel!
+}
+
+input CoachPaginationInput {
+  """Number of items to skip"""
+  skip: Float = 0
+
+  """Number of items to take (max 100)"""
+  take: Float = 20
+}
+
+input CoachQueryInput {
+  """Filtering options"""
+  filters: CoachFilterInput
+
+  """Pagination options"""
+  pagination: CoachPaginationInput
+
+  """Sorting options"""
+  sort: [CoachSortInput!]
+}
+
+"""Available fields for sorting coaches"""
+enum CoachSortField {
+  CREATED_AT
+  EMAIL
+  NAME
+  SURNAME
+  UPDATED_AT
+}
+
+input CoachSortInput {
+  """Field to sort by"""
+  field: CoachSortField!
+
+  """Sort order"""
+  order: CoachSortOrder! = ASC
+}
+
+"""Sort order for coach queries"""
+enum CoachSortOrder {
+  ASC
+  DESC
+}
+
+type CoachWorkingHoursTimeSlot {
+  end: String!
+  isAvailable: Boolean
+  start: String!
+}
+
+input CoachWorkingHoursTimeSlotInput {
+  end: String!
+  isAvailable: Boolean
+  start: String!
+}
+
+input CompleteClubSetupInput {
+  clubId: String!
+  finalStep: String!
+}
+
+input CreateAmenityInput {
+  """Bar service available"""
+  bar: Boolean! = false
+
+  """Changing room facilities available"""
+  changingRoom: Boolean! = false
+
+  """UUID of the club this amenity belongs to"""
+  clubId: String!
+
+  """Drinks service available"""
+  drinks: Boolean! = false
+
+  """Food service available"""
+  food: Boolean! = false
+
+  """Hot shower facilities available"""
+  hotShower: Boolean! = false
+
+  """Hotel accommodation available"""
+  hotel: Boolean! = false
+
+  """Kids room available"""
+  kidsRoom: Boolean! = false
+
+  """Restaurant available"""
+  restaurant: Boolean! = false
+
+  """WiFi internet access available"""
+  wifi: Boolean! = false
+}
+
+input CreateClubSetupInput {
+  additionalServices: [String!]
+  byInvoice: Boolean
+  chainId: String
+  completedSteps: [SetupStep!]
+  currency: String
+  currentStep: SetupStep
+  description: String
+  enableAcademyManagement: Boolean
+  enableClassBookings: Boolean
+  enableEventManagement: Boolean
+  enableLeagueTournamentManagement: Boolean
+  enableOnlineBookings: Boolean
+  enableOpenMatches: Boolean
+  galleryImages: [String!]
+  isPartOfChain: Boolean
+  lastSavedAt: String
+  logo: String
+  onlinePayment: Boolean
+  onsitePayment: Boolean
+  setupStatus: SetupStatus
+  sports: [String!]
+  title: String
+  typeOfClub: String
+}
+
+input CreateCoachClassAssignmentInput {
+  addToBalance: Boolean!
+  coachId: String!
+  salary: Float!
+}
+
+input CreateCoachClassInput {
+  clubId: String!
+
+  """Array of coach assignments"""
+  coach: [CreateCoachClassAssignmentInput!]!
+
+  """Array of group IDs"""
+  group: [String!]!
+  price: Float!
+
+  """Price calculation type"""
+  priceType: PriceType!
+
+  """Array of resource IDs"""
+  resource: [String!]!
+
+  """Array of service IDs"""
+  service: [String!]!
+  title: String!
+}
+
+input CreateCoachInput {
+  """Coach address"""
+  address: String
+
+  """Weekly availability schedule"""
+  availability: [CoachAvailableDayInput!]
+
+  """Coach avatar URL"""
+  avatar: String
+
+  """Coach city"""
+  city: String
+
+  """Club ID this coach belongs to"""
+  clubId: String!
+
+  """Coach country"""
+  country: String
+
+  """Educational background (JSON string)"""
+  education: String
+
+  """Coach email address"""
+  email: String!
+
+  """Experience categories with date ranges"""
+  experienceCategories: [CoachExperienceCategoryInput!]
+
+  """Years of experience"""
+  experienceYears: String
+
+  """Coach gender"""
+  gender: CoachGenderType
+
+  """Holiday schedule and special availability (JSON string)"""
+  holidaySchedule: String
+
+  """Languages spoken with proficiency levels"""
+  languages: [CoachLanguageProficiencyInput!]
+
+  """Coach name"""
+  name: String!
+
+  """Enable online booking for this coach"""
+  onlineBookingEnabled: Boolean = false
+
+  """Coach phone number"""
+  phone: String
+
+  """Coach phone country code"""
+  phoneCountryCode: String
+
+  """Assigned resources/courts for the coach"""
+  resources: String
+
+  """Services the coach provides"""
+  services: [String!]! = []
+
+  """Sports experience and achievements (JSON string)"""
+  sportsExperience: String
+
+  """Coach surname"""
+  surname: String!
+
+  """Work experience details (JSON string)"""
+  workExperience: String
+}
+
+input CreateExtrasInput {
+  """Analytics integration"""
+  analyticsIntegration: String
+
+  """API keys and secrets"""
+  apiKeys: String
+
+  """Club ID this extras configuration belongs to"""
+  clubId: String!
+
+  """Email marketing integration"""
+  emailMarketing: String
+
+  """External booking system integration"""
+  externalBookingSystem: String
+
+  """Hour bank description"""
+  hourBankDescription: String
+
+  """Enable hour bank feature"""
+  hourBankEnabled: Boolean! = false
+
+  """Hour bank limits per user type"""
+  hourBankLimits: [ExtrasUserLimitInput!]! = []
+
+  """Loyalty program configuration"""
+  loyaltyProgram: String
+
+  """Additional notes"""
+  notes: String
+
+  """Notification settings"""
+  notificationSettings: String
+
+  """Payment gateway integration"""
+  paymentGateway: String
+
+  """Social media integration"""
+  socialMediaIntegration: String
+
+  """Extras configuration status"""
+  status: ExtrasStatus! = ACTIVE
+
+  """Wishlist description"""
+  wishlistDescription: String
+
+  """Enable wishlist feature"""
+  wishlistEnabled: Boolean! = false
+
+  """Wishlist limits per user type"""
+  wishlistLimits: [ExtrasUserLimitInput!]! = []
+}
+
+input CreateLocationContactInput {
+  address: String!
+  city: String!
+  clubId: String!
+  country: String!
+  description: String
+  email: String
+  facebookLink: String
+  instagramLink: String
+  phoneCountryCode: String
+  phoneNumber: String
+  tiktokLink: String
+  websiteLink: String
+}
+
+input CreateMembershipInput {
+  clubId: String!
+  currency: String
+  endAt: DateTime
+  fixedDiscount: Float
+  membershipsLimit: Float
+  numberOfBookingHours: Float
+  periodType: String
+  price: Float
+
+  """Services offered in this membership"""
+  services: [String!]!
+  startAt: DateTime
+  status: MembershipStatus! = ACTIVE
+  title: String!
+}
+
+input CreatePricingInput {
+  clubId: String!
+  currency: String
+  endTime: String!
+  membershipIds: [String!]
+  period: String
+  price: Float
+
+  """
+  Array of resource IDs that relate to resource titles in the resource module
+  """
+  resourceIds: [String!]
+  startTime: String!
+  type: String
+
+  """Array of user group IDs with default empty array"""
+  userGroupIds: [String!] = []
+  weekdays: [String!]
+}
+
+input CreatePromoCodeInput {
+  amount: Float
+  clubId: String!
+  custom_period_number: Float
+  custom_period_string: String
+  membershipIds: [String!]
+  name: String
+  price_type: String
+  promo_period: String
+  resourceIds: [String!]
+  serviceIds: [String!]!
+  userGroupIds: [String!]
+}
+
+input CreateResourceInput {
+  """UUID of the club this resource belongs to"""
+  clubId: String!
+
+  """Hex color code for calendar display (e.g., #F1C231)"""
+  color: String!
+
+  """Optional description or notes"""
+  description: String
+
+  """Enable online booking for this resource"""
+  enableOnlineBooking: Boolean! = true
+
+  """Surface property of the resource"""
+  property: ResourceProperty!
+
+  """Type of service offered"""
+  service: ResourceServiceType!
+
+  """Current status of the resource"""
+  status: ResourceStatus! = ACTIVE
+
+  """Title of the resource (e.g., Court #1)"""
+  title: String!
+
+  """Indoor or outdoor resource"""
+  type: ResourceType!
+}
+
+input CreateTeamMemberInput {
+  """Team member avatar URL"""
+  avatar: String
+
+  """Team member biography"""
+  bio: String
+
+  """Club ID this team member belongs to"""
+  clubId: String!
+
+  """Club ownership type for the team member"""
+  club_owner: ClubOwnerType
+
+  """Team member country"""
+  country: String
+
+  """Country code for phone number"""
+  countryCode: String
+
+  """Date of birth"""
+  dateOfBirth: DateTime
+
+  """Team member email address"""
+  email: String!
+
+  """Team member gender"""
+  gender: TeamMemberGenderType
+
+  """Team member name"""
+  name: String!
+
+  """Additional notes about the team member"""
+  notes: String
+
+  """Permissions assigned to the team member"""
+  permissions: [TeamMemberPermissionType!]! = []
+
+  """Team member phone number"""
+  phone: String
+
+  """Team member position/role"""
+  position: String
+
+  """Team member status"""
+  status: TeamMemberStatus! = ACTIVE
+
+  """Team member surname"""
+  surname: String!
+}
+
+input CreateUserGroupInput {
+  clubId: String!
+  color: String!
+
+  """Percent discount 0..100"""
+  fixedDiscount: Float
+  maxCustomers: Float
+  services: [String!]!
+  status: UserGroupStatus! = ACTIVE
+  title: String!
+}
+
+input CreateWorkingHoursCalendarInput {
+  availableDays: [WorkingHoursAvailableDayInput!]!
+  calendarSettings: WorkingHoursCalendarSettingsInput
+  clubId: String!
+  isActive: Boolean
+  notes: String
+  timezone: String
+  unavailableDays: [WorkingHoursWorkingHoursUnavailableDayInput!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Days of the week"""
+enum DayOfWeek {
+  FRIDAY
+  MONDAY
+  SATURDAY
+  SUNDAY
+  THURSDAY
+  TUESDAY
+  WEDNESDAY
+}
+
+type Extras {
+  """List of active integrations"""
+  activeIntegrations: [String!]!
+
+  """Analytics integration"""
+  analyticsIntegration: String
+
+  """API keys and secrets"""
+  apiKeys: String
+  clubId: String!
+  createdAt: DateTime!
+
+  """Email marketing integration"""
+  emailMarketing: String
+
+  """List of enabled features"""
+  enabledFeatures: [String!]!
+
+  """External booking system integration"""
+  externalBookingSystem: String
+
+  """Enable hour bank feature"""
+  hourBank: Boolean!
+
+  """Number of hour bank limits configured"""
+  hourBankLimitCount: Int!
+
+  """Hour bank limits per user type"""
+  hourBankLimits: [ExtrasUserLimit!]!
+  id: ID!
+
+  """Number of integrations configured"""
+  integrationCount: Int!
+
+  """Whether the extras configuration is currently active"""
+  isActive: Boolean!
+
+  """Loyalty program configuration"""
+  loyaltyProgram: String
+
+  """Additional notes"""
+  notes: String
+
+  """Notification settings"""
+  notificationSettings: String
+
+  """Payment gateway integration"""
+  paymentGateway: String
+
+  """Social media integration"""
+  socialMediaIntegration: String
+  status: ExtrasStatus!
+  updatedAt: DateTime!
+
+  """Enable wishlist feature"""
+  wishlist: Boolean!
+
+  """Wishlist description"""
+  wishlistDescription: String
+
+  """Number of wishlist limits configured"""
+  wishlistLimitCount: Int!
+
+  """Wishlist limits per user type"""
+  wishlistLimits: [ExtrasUserLimit!]!
+}
+
+input ExtrasDateRangeFilter {
+  """End date (ISO string)"""
+  endDate: String
+
+  """Start date (ISO string)"""
+  startDate: String
+}
+
+input ExtrasFilterInput {
+  """Filter by analytics integration"""
+  analyticsIntegration: String
+
+  """Filter by club ID"""
+  clubId: String
+
+  """Filter by creation date"""
+  createdAt: ExtrasDateRangeFilter
+
+  """Filter by email marketing"""
+  emailMarketing: String
+
+  """Filter by external booking system"""
+  externalBookingSystem: String
+
+  """Filter by hour bank enabled"""
+  hourBankEnabled: Boolean
+
+  """Filter by payment gateway"""
+  paymentGateway: String
+
+  """Full-text search across descriptions and notes"""
+  searchText: String
+
+  """Filter by social media integration"""
+  socialMediaIntegration: String
+
+  """Filter by status"""
+  status: ExtrasStatus
+
+  """Filter by last update date"""
+  updatedAt: ExtrasDateRangeFilter
+
+  """Filter by wishlist enabled"""
+  wishlistEnabled: Boolean
+}
+
+"""Type of limit for extras"""
+enum ExtrasLimitType {
+  AMOUNT
+  HOURS
+  PERCENTAGE
+}
+
+input ExtrasPaginationInput {
+  """Number of items to skip"""
+  skip: Float = 0
+
+  """Number of items to take (max 100)"""
+  take: Float = 20
+}
+
+input ExtrasQueryInput {
+  """Filtering options"""
+  filters: ExtrasFilterInput
+
+  """Pagination options"""
+  pagination: ExtrasPaginationInput
+
+  """Sorting options"""
+  sort: [ExtrasSortInput!]
+}
+
+type ExtrasSearchResponse {
+  """List of extras configurations matching the search criteria"""
+  extras: [Extras!]!
+
+  """Number of items per page"""
+  limit: Int!
+
+  """Current page number"""
+  page: Int!
+
+  """Total number of extras configurations matching the criteria"""
+  total: Int!
+
+  """Total number of pages"""
+  totalPages: Int!
+}
+
+"""Available fields for sorting extras configurations"""
+enum ExtrasSortField {
+  CREATED_AT
+  HOUR_BANK_ENABLED
+  STATUS
+  UPDATED_AT
+  WISHLIST_ENABLED
+}
+
+input ExtrasSortInput {
+  """Field to sort by"""
+  field: ExtrasSortField!
+
+  """Sort order"""
+  order: ExtrasSortOrder! = ASC
+}
+
+"""Sort order for extras queries"""
+enum ExtrasSortOrder {
+  ASC
+  DESC
+}
+
+"""Status of the extras configuration"""
+enum ExtrasStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+type ExtrasUserLimit {
+  """Additional configuration"""
+  configuration: String
+
+  """Currency for amount limits"""
+  currency: String
+
+  """Type of limit"""
+  limitType: ExtrasLimitType!
+
+  """Limit value"""
+  limitValue: Float!
+
+  """User type"""
+  userType: ExtrasUserType!
+}
+
+input ExtrasUserLimitInput {
+  """Additional configuration"""
+  configuration: String
+
+  """Currency for amount limits"""
+  currency: String
+
+  """Type of limit"""
+  limitType: ExtrasLimitType!
+
+  """Limit value"""
+  limitValue: Float!
+
+  """User type"""
+  userType: ExtrasUserType!
+}
+
+input ExtrasUserLimitUpdateInput {
+  """Additional configuration"""
+  configuration: String
+
+  """Currency for amount limits"""
+  currency: String
+
+  """Type of limit"""
+  limitType: ExtrasLimitType!
+
+  """Limit value"""
+  limitValue: Float!
+
+  """User type"""
+  userType: ExtrasUserType!
+}
+
+"""Type of user for extras limits"""
+enum ExtrasUserType {
+  DEFAULT
+  PREMIUM
+  REGULAR
+  VIP
+}
+
+"""Available filter operators for field matching"""
+enum FilterOperator {
+  CONTAINS
+  ENDS_WITH
+  EQUALS
+  STARTS_WITH
+}
+
+type IntegrationStats {
+  """Number of clubs with analytics integration"""
+  analyticsCount: Int!
+
+  """Number of clubs with email marketing"""
+  emailMarketingCount: Int!
+
+  """Number of clubs with external booking system"""
+  externalBookingCount: Int!
+
+  """Number of clubs with hour bank enabled"""
+  hourBankEnabled: Int!
+
+  """Number of clubs with payment gateway"""
+  paymentGatewayCount: Int!
+
+  """Number of clubs with social media integration"""
+  socialMediaCount: Int!
+
+  """Number of clubs with wishlist enabled"""
+  wishlistEnabled: Int!
+}
+
+type LocationContact {
+  address: String!
+  city: String!
+  clubId: String!
+  country: String!
+  createdAt: DateTime!
+  description: String
+  email: String
+  facebookLink: String
+  id: ID!
+  instagramLink: String
+  phoneCountryCode: String
+  phoneNumber: String
+  tiktokLink: String
+  updatedAt: DateTime!
+  websiteLink: String
+}
+
+type Membership {
+  clubId: String!
+  createdAt: DateTime!
+  currency: String
+  endAt: DateTime
+  fixedDiscount: Float
+  id: ID!
+  membershipsLimit: Float
+  numberOfBookingHours: Float
+
+  """recurring | specific"""
+  periodType: String
+  price: Float
+  resources: [String!]
+
+  """Services offered in this membership"""
+  services: [String!]!
+  startAt: DateTime
+  status: MembershipStatus!
+  title: String!
+  updatedAt: DateTime!
+}
+
+"""Status of the membership"""
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type Mutation {
+  abandonClubSetup(clubId: String!): ClubSetup!
+
+  """Add a permission to a team member"""
+  addTeamMemberPermission(id: ID!, permission: TeamMemberPermissionType!): TeamMember!
+
+  """Delete multiple extras configurations"""
+  bulkDeleteExtras(ids: [ID!]!): Boolean!
+
+  """Delete multiple team members"""
+  bulkDeleteTeamMembers(ids: [ID!]!): Boolean!
+
+  """Update status for multiple extras configurations"""
+  bulkUpdateExtrasStatus(ids: [ID!]!, status: ExtrasStatus!): [Extras!]!
+
+  """Update status for multiple team members"""
+  bulkUpdateTeamMemberStatus(ids: [ID!]!, status: TeamMemberStatus!): [TeamMember!]!
+  completeClubSetup(input: CompleteClubSetupInput!): ClubSetup!
+  createAmenity(input: CreateAmenityInput!): Amenity!
+  createClubSetup(input: CreateClubSetupInput!): ClubSetup!
+  createCoach(createCoachInput: CreateCoachInput!): Coach!
+  createCoachClass(createCoachClassInput: CreateCoachClassInput!): CoachClass!
+
+  """Create a new extras configuration"""
+  createExtras(input: CreateExtrasInput!): Extras!
+  createLocationContact(input: CreateLocationContactInput!): LocationContact!
+  createMembership(input: CreateMembershipInput!): Membership!
+  createPricing(input: CreatePricingInput!): Pricing!
+  createPromoCode(input: CreatePromoCodeInput!): PricingPromoCode!
+  createResource(input: CreateResourceInput!): ClubResource!
+
+  """Create a new team member"""
+  createTeamMember(input: CreateTeamMemberInput!): TeamMember!
+  createUserGroup(input: CreateUserGroupInput!): ClubUserGroup!
+  createWorkingHoursCalendar(input: CreateWorkingHoursCalendarInput!): WorkingHoursCalendar!
+  deleteAmenity(id: String!): String!
+  deleteAmenityByClubId(clubId: String!): String!
+  deleteClub(id: String!): String!
+
+  """Delete an extras configuration"""
+  deleteExtras(id: ID!): String!
+  deleteLocationContact(clubId: String!): String!
+  deleteMembership(id: ID!): String!
+  deletePricing(id: ID!): String!
+  deletePromoCode(id: ID!): String!
+  deleteResource(id: String!): String!
+
+  """Delete a team member"""
+  deleteTeamMember(id: ID!): String!
+  deleteUserGroup(id: ID!): String!
+  deleteWorkingHoursCalendar(clubId: String!): String!
+  removeCoach(id: String!): Boolean!
+  removeCoachClass(clubId: String!, id: String!): Boolean!
+
+  """Remove a permission from a team member"""
+  removeTeamMemberPermission(id: ID!, permission: TeamMemberPermissionType!): TeamMember!
+
+  """Toggle a specific feature on/off for an extras configuration"""
+  toggleExtrasFeature(enabled: Boolean!, feature: String!, id: ID!): Extras!
+  updateAmenity(id: String!, input: UpdateAmenityInput!): Amenity!
+  updateAmenityByClubId(clubId: String!, input: UpdateAmenityInput!): Amenity!
+  updateClubSetup(id: String!, input: UpdateClubSetupInput!): ClubSetup!
+  updateCoach(updateCoachInput: UpdateCoachInput!): Coach!
+  updateCoachClass(clubId: String!, updateCoachClassInput: UpdateCoachClassInput!): CoachClass!
+
+  """Update an existing extras configuration"""
+  updateExtras(id: ID!, input: UpdateExtrasInput!): Extras!
+
+  """Update extras configuration status"""
+  updateExtrasStatus(id: ID!, status: ExtrasStatus!): Extras!
+  updateLocationContact(clubId: String!, input: UpdateLocationContactInput!): LocationContact!
+  updateMembership(id: ID!, input: UpdateMembershipInput!): Membership!
+  updatePricing(id: ID!, input: UpdatePricingInput!): Pricing!
+  updatePromoCode(id: ID!, input: UpdatePromoCodeInput!): PricingPromoCode!
+  updateResource(id: String!, input: UpdateResourceInput!): ClubResource!
+
+  """Update an existing team member"""
+  updateTeamMember(id: ID!, input: UpdateTeamMemberInput!): TeamMember!
+
+  """Update team member permissions"""
+  updateTeamMemberPermissions(id: ID!, permissions: [TeamMemberPermissionType!]!): TeamMember!
+
+  """Update team member status"""
+  updateTeamMemberStatus(id: ID!, status: TeamMemberStatus!): TeamMember!
+  updateUserGroup(id: ID!, input: UpdateUserGroupInput!): ClubUserGroup!
+  updateWorkingHoursCalendar(id: ID!, input: UpdateWorkingHoursCalendarInput!): WorkingHoursCalendar!
+}
+
+"""Type of price calculation for the class"""
+enum PriceType {
+  PER_CLASS
+  PER_CLIENT
+}
+
+type Pricing {
+  clubId: String!
+  createdAt: DateTime!
+  currency: String
+  endTime: String!
+  id: ID!
+  membershipIds: [String!]
+  period: String!
+  price: Float
+  resourceIds: [String!]
+  startTime: String!
+  type: String!
+  updatedAt: DateTime!
+  userGroupIds: [String!]
+  weekdays: [String!]
+}
+
+type PricingPromoCode {
+  amount: Float
+  clubId: String!
+  createdAt: DateTime!
+  custom_period_number: Float
+  custom_period_string: String
+  id: ID!
+  membershipIds: [String!]
+  name: String
+  price_type: String
+  promo_period: String
+  resourceIds: [String!]
+  serviceIds: [String!]!
+  updatedAt: DateTime!
+  userGroupIds: [String!]
+}
+
+type Query {
+  coach(id: String!): Coach!
+  coachClass(clubId: String!, id: String!): CoachClass!
+  coachClasses(filter: CoachClassFilterInput!): [CoachClass!]!
+  coachClassesByCoach(clubId: String!, coachId: String!): [CoachClass!]!
+  coachClassesCount(filter: CoachClassFilterInput!): Int!
+  coaches(query: CoachQueryInput!): [Coach!]!
+  coachesByClub(clubId: String!): [Coach!]!
+  coachesByService(clubId: String, serviceId: String!): [Coach!]!
+  coachesCount(query: CoachQueryInput!): Int!
+  getAllClubs(filter: ClubFilter): [ClubSetup!]
+  getAmenities: [Amenity!]!
+  getAmenity(id: String!): Amenity
+  getAmenityByClubId(clubId: String!): Amenity
+  getClub(id: String!): ClubSetup
+  getClubLocation(id: String!): ClubSetup
+  getClubResources(id: String!): ClubSetup
+  getClubsBySetupStatus(status: String!): [ClubSetup!]!
+
+  """Get all extras configurations, optionally filtered by club ID"""
+  getExtras(clubId: ID): [Extras!]!
+
+  """Get all extras configurations for a specific club"""
+  getExtrasByClub(clubId: ID!): [Extras!]!
+
+  """Get extras configurations filtered by feature and enabled status"""
+  getExtrasByFeature(clubId: ID, enabled: Boolean!, feature: String!): [Extras!]!
+
+  """Get a single extras configuration by ID"""
+  getExtrasById(id: ID!): Extras!
+
+  """Get extras configurations filtered by status"""
+  getExtrasByStatus(clubId: ID, status: String!): [Extras!]!
+
+  """Get total count of extras configurations with optional filters"""
+  getExtrasCount(clubId: ID, status: ExtrasStatus): Int!
+
+  """Get integration statistics for extras configurations"""
+  getIntegrationStats(clubId: ID): IntegrationStats!
+  getLocationContact(clubId: String!): LocationContact
+  getMembership(id: ID!): Membership
+  getMemberships(clubId: ID): [Membership!]!
+  getPricing(id: ID!): Pricing
+  getPricings(clubId: ID): [Pricing!]!
+  getPromoCode(id: ID!): PricingPromoCode
+  getPromoCodes(clubId: ID): [PricingPromoCode!]!
+  getResource(id: String!): ClubResource
+  getResources: [ClubResource!]!
+  getResourcesByClubId(clubId: String!): [ClubResource!]!
+  getResourcesByService(service: String!): [ClubResource!]!
+  getResourcesByStatus(status: String!): [ClubResource!]!
+
+  """Get a single team member by ID"""
+  getTeamMember(id: ID!): TeamMember!
+
+  """Get total count of team members with optional filters"""
+  getTeamMemberCount(clubId: ID, status: TeamMemberStatus): Int!
+
+  """Get all team members, optionally filtered by club ID"""
+  getTeamMembers(clubId: ID): [TeamMember!]!
+
+  """Get all team members for a specific club"""
+  getTeamMembersByClub(clubId: ID!): [TeamMember!]!
+
+  """Get team members filtered by permissions"""
+  getTeamMembersByPermissions(clubId: ID, permissions: [TeamMemberPermissionType!]!): [TeamMember!]!
+
+  """Get team members filtered by position"""
+  getTeamMembersByPosition(clubId: ID, position: String!): [TeamMember!]!
+
+  """Get team members filtered by status"""
+  getTeamMembersByStatus(clubId: ID, status: String!): [TeamMember!]!
+  getUserGroup(id: ID!): ClubUserGroup
+  getUserGroups(clubId: ID): [ClubUserGroup!]!
+  getWorkingHoursCalendar(clubId: String!): WorkingHoursCalendar
+  searchClubs(input: ClubMultiFieldQueryInput!): [ClubSetup!]!
+
+  """
+  Advanced search and filtering for extras configurations with pagination
+  """
+  searchExtras(query: ExtrasQueryInput!): ExtrasSearchResponse!
+
+  """Search extras configurations by description and notes"""
+  searchExtrasByDescription(clubId: ID, limit: Int! = 20, searchTerm: String!): [Extras!]!
+
+  """Advanced search and filtering for team members with pagination"""
+  searchTeamMembers(query: TeamMemberQueryInput!): TeamMemberSearchResponse!
+
+  """Search team members by name, surname, or email"""
+  searchTeamMembersByName(clubId: ID, limit: Int! = 20, searchTerm: String!): [TeamMember!]!
+}
+
+"""Property/material of the resource"""
+enum ResourceProperty {
+  CARPET
+  CLAY
+  CONCRETE
+  GRASS
+  HARD
+  OTHER
+  SYNTHETIC
+  WOOD
+}
+
+"""Type of service offered (scoped to clubs resources)"""
+enum ResourceServiceType {
+  BADMINTON
+  BASKETBALL
+  FITNESS
+  FOOTBALL
+  GOLF
+  GYM
+  OTHER
+  PADEL
+  SQUASH
+  SWIMMING
+  TENNIS
+  VOLLEYBALL
+}
+
+"""Status of the resource"""
+enum ResourceStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+}
+
+"""Type of resource (indoor/outdoor)"""
+enum ResourceType {
+  INDOOR
+  OUTDOOR
+}
+
+"""Status of club setup process"""
+enum SetupStatus {
+  ABANDONED
+  COMPLETED
+  DRAFT
+  IN_PROGRESS
+}
+
+"""Steps in club setup process"""
+enum SetupStep {
+  AMENITIES
+  CLUB_SETUP
+  COACHES
+  EXTRAS_INTEGRATIONS
+  LOCATION_CONTACT
+  MEMBERSHIPS
+  PRICING
+  RESOURCES
+  TEAM_MEMBERS
+  USER_GROUPS
+  WORKING_HOURS
+}
+
+"""Type of sports"""
+enum SportsType {
+  BADMINTON
+  BASKETBALL
+  FITNESS
+  FOOTBALL
+  GOLF
+  GYM
+  OTHER
+  PADEL
+  SQUASH
+  SWIMMING
+  TENNIS
+  VOLLEYBALL
+}
+
+type TeamMember {
+  avatar: String
+  bio: String
+  clubId: String!
+
+  """Club ownership type for the team member"""
+  club_owner: ClubOwnerType
+  country: String
+  countryCode: String
+  createdAt: DateTime!
+  dateOfBirth: DateTime
+  email: String!
+
+  """Full name of the team member (name + surname)"""
+  fullName: String!
+
+  """Full phone number with country code"""
+  fullPhone: String!
+  gender: TeamMemberGenderType
+  id: ID!
+
+  """Whether the team member is currently active"""
+  isActive: Boolean!
+  name: String!
+  notes: String
+
+  """Number of permissions assigned to the team member"""
+  permissionCount: Int!
+
+  """Permissions assigned to the team member"""
+  permissions: [TeamMemberPermissionType!]!
+  phone: String
+  position: String
+  status: TeamMemberStatus!
+  surname: String!
+  updatedAt: DateTime!
+}
+
+input TeamMemberDateRangeFilter {
+  """End date (ISO string)"""
+  endDate: String
+
+  """Start date (ISO string)"""
+  startDate: String
+}
+
+input TeamMemberFilterInput {
+  """Filter by club ID"""
+  clubId: String
+
+  """Filter by club ownership type"""
+  club_owner: ClubOwnerType
+
+  """Filter by country"""
+  country: String
+
+  """Filter by creation date"""
+  createdAt: TeamMemberDateRangeFilter
+
+  """Filter by team member email"""
+  email: String
+
+  """Filter by gender"""
+  gender: TeamMemberGenderType
+
+  """Filter by team member name"""
+  name: String
+
+  """Filter by permissions"""
+  permissions: [TeamMemberPermissionType!]
+
+  """Filter by phone number"""
+  phone: String
+
+  """Filter by position"""
+  position: String
+
+  """Full-text search across name, surname, email, position"""
+  searchText: String
+
+  """Filter by status"""
+  statuses: [TeamMemberStatus!]
+
+  """Filter by team member surname"""
+  surname: String
+
+  """Filter by last update date"""
+  updatedAt: TeamMemberDateRangeFilter
+}
+
+"""Gender of the team member"""
+enum TeamMemberGenderType {
+  FEMALE
+  MALE
+  OTHER
+}
+
+input TeamMemberPaginationInput {
+  """Number of items to skip"""
+  skip: Float = 0
+
+  """Number of items to take (max 100)"""
+  take: Float = 20
+}
+
+"""Type of permission for team member"""
+enum TeamMemberPermissionType {
+  MANAGE_ANNOUNCEMENTS_NOTIFICATIONS
+  MANAGE_BOOKINGS_MATCHES
+  MANAGE_CLASSES
+  MANAGE_COACHES
+  MANAGE_COMMUNITIES
+  MANAGE_CUSTOMERS
+  MANAGE_FINANCES
+  MANAGE_NEWS_GALLERIES
+}
+
+input TeamMemberQueryInput {
+  """Filtering options"""
+  filters: TeamMemberFilterInput
+
+  """Pagination options"""
+  pagination: TeamMemberPaginationInput
+
+  """Sorting options"""
+  sort: [TeamMemberSortInput!]
+}
+
+type TeamMemberSearchResponse {
+  """Number of items per page"""
+  limit: Int!
+
+  """Current page number"""
+  page: Int!
+
+  """List of team members matching the search criteria"""
+  teamMembers: [TeamMember!]!
+
+  """Total number of team members matching the criteria"""
+  total: Int!
+
+  """Total number of pages"""
+  totalPages: Int!
+}
+
+"""Available fields for sorting team members"""
+enum TeamMemberSortField {
+  CREATED_AT
+  EMAIL
+  NAME
+  POSITION
+  STATUS
+  SURNAME
+  UPDATED_AT
+}
+
+input TeamMemberSortInput {
+  """Field to sort by"""
+  field: TeamMemberSortField!
+
+  """Sort order"""
+  order: TeamMemberSortOrder! = ASC
+}
+
+"""Sort order for team member queries"""
+enum TeamMemberSortOrder {
+  ASC
+  DESC
+}
+
+"""Status of the team member"""
+enum TeamMemberStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+type UnavailableDay {
+  date: String!
+  isClosed: Boolean!
+  timeSlots: [WorkingHoursTimeSlot!]
+}
+
+input UpdateAmenityInput {
+  """Bar service available"""
+  bar: Boolean = false
+
+  """Changing room facilities available"""
+  changingRoom: Boolean = false
+
+  """UUID of the club this amenity belongs to"""
+  clubId: String
+
+  """Drinks service available"""
+  drinks: Boolean = false
+
+  """Food service available"""
+  food: Boolean = false
+
+  """Hot shower facilities available"""
+  hotShower: Boolean = false
+
+  """Hotel accommodation available"""
+  hotel: Boolean = false
+
+  """Kids room available"""
+  kidsRoom: Boolean = false
+
+  """Restaurant available"""
+  restaurant: Boolean = false
+
+  """WiFi internet access available"""
+  wifi: Boolean = false
+}
+
+input UpdateClubSetupInput {
+  additionalServices: [String!]
+  byInvoice: Boolean
+  chainId: String
+  completedSteps: [SetupStep!]
+  currency: String
+  currentStep: SetupStep
+  description: String
+  enableAcademyManagement: Boolean
+  enableClassBookings: Boolean
+  enableEventManagement: Boolean
+  enableLeagueTournamentManagement: Boolean
+  enableOnlineBookings: Boolean
+  enableOpenMatches: Boolean
+  galleryImages: [String!]
+  isPartOfChain: Boolean
+  lastSavedAt: String
+  logo: String
+  onlinePayment: Boolean
+  onsitePayment: Boolean
+  setupStatus: SetupStatus
+  sports: [String!]
+  title: String
+  typeOfClub: String
+}
+
+input UpdateCoachClassInput {
+  clubId: String
+
+  """Array of coach assignments"""
+  coach: [CreateCoachClassAssignmentInput!]
+
+  """Array of group IDs"""
+  group: [String!]
+  id: String!
+  price: Float
+
+  """Price calculation type"""
+  priceType: PriceType
+
+  """Array of resource IDs"""
+  resource: [String!]
+
+  """Array of service IDs"""
+  service: [String!]
+  title: String
+}
+
+input UpdateCoachInput {
+  """Coach address"""
+  address: String
+
+  """Weekly availability schedule"""
+  availability: [CoachAvailableDayInput!]
+
+  """Coach avatar URL"""
+  avatar: String
+
+  """Coach city"""
+  city: String
+
+  """Club ID this coach belongs to"""
+  clubId: String
+
+  """Coach country"""
+  country: String
+
+  """Educational background (JSON string)"""
+  education: String
+
+  """Coach email address"""
+  email: String
+
+  """Experience categories with date ranges"""
+  experienceCategories: [CoachExperienceCategoryInput!]
+
+  """Years of experience"""
+  experienceYears: String
+
+  """Coach gender"""
+  gender: CoachGenderType
+
+  """Holiday schedule and special availability (JSON string)"""
+  holidaySchedule: String
+  id: String!
+
+  """Languages spoken with proficiency levels"""
+  languages: [CoachLanguageProficiencyInput!]
+
+  """Coach name"""
+  name: String
+
+  """Enable online booking for this coach"""
+  onlineBookingEnabled: Boolean = false
+
+  """Coach phone number"""
+  phone: String
+
+  """Coach phone country code"""
+  phoneCountryCode: String
+
+  """Assigned resources/courts for the coach"""
+  resources: String
+
+  """Services the coach provides"""
+  services: [String!] = []
+
+  """Sports experience and achievements (JSON string)"""
+  sportsExperience: String
+
+  """Coach surname"""
+  surname: String
+
+  """Work experience details (JSON string)"""
+  workExperience: String
+}
+
+input UpdateExtrasInput {
+  """Analytics integration"""
+  analyticsIntegration: String
+
+  """API keys and secrets"""
+  apiKeys: String
+
+  """Club ID this extras configuration belongs to"""
+  clubId: String
+
+  """Email marketing integration"""
+  emailMarketing: String
+
+  """External booking system integration"""
+  externalBookingSystem: String
+
+  """Hour bank description"""
+  hourBankDescription: String
+
+  """Enable hour bank feature"""
+  hourBankEnabled: Boolean
+
+  """Hour bank limits per user type"""
+  hourBankLimits: [ExtrasUserLimitUpdateInput!]
+
+  """Loyalty program configuration"""
+  loyaltyProgram: String
+
+  """Additional notes"""
+  notes: String
+
+  """Notification settings"""
+  notificationSettings: String
+
+  """Payment gateway integration"""
+  paymentGateway: String
+
+  """Social media integration"""
+  socialMediaIntegration: String
+
+  """Extras configuration status"""
+  status: ExtrasStatus
+
+  """Wishlist description"""
+  wishlistDescription: String
+
+  """Enable wishlist feature"""
+  wishlistEnabled: Boolean
+
+  """Wishlist limits per user type"""
+  wishlistLimits: [ExtrasUserLimitUpdateInput!]
+}
+
+input UpdateLocationContactInput {
+  address: String!
+  city: String!
+  clubId: String
+  country: String!
+  description: String
+  email: String
+  facebookLink: String
+  instagramLink: String
+  phoneCountryCode: String
+  phoneNumber: String
+  tiktokLink: String
+  websiteLink: String
+}
+
+input UpdateMembershipInput {
+  clubId: String
+  currency: String
+  endAt: DateTime
+  fixedDiscount: Float
+  membershipsLimit: Float
+  numberOfBookingHours: Float
+  periodType: String
+  price: Float
+
+  """Services offered in this membership"""
+  services: [String!]
+  startAt: DateTime
+  status: MembershipStatus = ACTIVE
+  title: String
+}
+
+input UpdatePricingInput {
+  clubId: String
+  currency: String
+  endTime: String
+  membershipIds: [String!]
+  period: String
+  price: Float
+
+  """
+  Array of resource IDs that relate to resource titles in the resource module
+  """
+  resourceIds: [String!]
+  startTime: String
+  type: String
+
+  """Array of user group IDs with default empty array"""
+  userGroupIds: [String!] = []
+  weekdays: [String!]
+}
+
+input UpdatePromoCodeInput {
+  amount: Float
+  clubId: String
+  custom_period_number: Float
+  custom_period_string: String
+  membershipIds: [String!]
+  name: String
+  price_type: String
+  promo_period: String
+  resourceIds: [String!]
+  serviceIds: [String!]
+  userGroupIds: [String!]
+}
+
+input UpdateResourceInput {
+  """UUID of the club this resource belongs to"""
+  clubId: String
+
+  """Hex color code for calendar display (e.g., #F1C231)"""
+  color: String
+
+  """Optional description or notes"""
+  description: String
+
+  """Enable online booking for this resource"""
+  enableOnlineBooking: Boolean = true
+
+  """Surface property of the resource"""
+  property: ResourceProperty
+
+  """Type of service offered"""
+  service: ResourceServiceType
+
+  """Current status of the resource"""
+  status: ResourceStatus
+
+  """Title of the resource (e.g., Court #1)"""
+  title: String
+
+  """Indoor or outdoor resource"""
+  type: ResourceType
+}
+
+input UpdateTeamMemberInput {
+  """Team member avatar URL"""
+  avatar: String
+
+  """Team member biography"""
+  bio: String
+
+  """Club ID this team member belongs to"""
+  clubId: String
+
+  """Club ownership type for the team member"""
+  club_owner: ClubOwnerType
+
+  """Team member country"""
+  country: String
+
+  """Country code for phone number"""
+  countryCode: String
+
+  """Date of birth"""
+  dateOfBirth: DateTime
+
+  """Team member email address"""
+  email: String
+
+  """Team member gender"""
+  gender: TeamMemberGenderType
+
+  """Team member name"""
+  name: String
+
+  """Additional notes about the team member"""
+  notes: String
+
+  """Permissions assigned to the team member"""
+  permissions: [TeamMemberPermissionType!] = []
+
+  """Team member phone number"""
+  phone: String
+
+  """Team member position/role"""
+  position: String
+
+  """Team member status"""
+  status: TeamMemberStatus = ACTIVE
+
+  """Team member surname"""
+  surname: String
+}
+
+input UpdateUserGroupInput {
+  clubId: String
+  color: String
+
+  """Percent discount 0..100"""
+  fixedDiscount: Float
+  maxCustomers: Float
+  services: [String!]
+  status: UserGroupStatus = ACTIVE
+  title: String
+}
+
+input UpdateWorkingHoursCalendarInput {
+  availableDays: [WorkingHoursAvailableDayInput!]!
+  calendarSettings: WorkingHoursCalendarSettingsInput
+  isActive: Boolean
+  notes: String
+  timezone: String
+  unavailableDays: [WorkingHoursWorkingHoursUnavailableDayInput!]
+}
+
+"""Status of the user group"""
+enum UserGroupStatus {
+  ACTIVE
+  INACTIVE
+}
+
+input WorkingHoursAvailableDayInput {
+  day: DayOfWeek!
+  isOpen: Boolean!
+  timeSlots: [WorkingHoursTimeSlotInput!]
+}
+
+type WorkingHoursCalendar {
+  availableDays: [AvailableDay!]!
+  calendarSettings: CalendarSettings
+  clubId: String!
+  createdAt: DateTime!
+  id: ID!
+  timezone: String
+  unavailableDays: [UnavailableDay!]
+  updatedAt: DateTime!
+}
+
+input WorkingHoursCalendarSettingsInput {
+  """Cancellation buffer in hours"""
+  cancellation_buffer_in_hours: Int!
+
+  """Default interval in minutes"""
+  default_interval_in_mins: Int!
+  firstDayOfWeek: DayOfWeek!
+
+  """Minimum booking time in minutes"""
+  min_booking_time_in_mins: Int!
+
+  """Show booking for in weeks"""
+  show_booking_for_in_weeks: String!
+}
+
+type WorkingHoursTimeSlot {
+  end: String!
+  isAvailable: Boolean
+  start: String!
+}
+
+input WorkingHoursTimeSlotInput {
+  end: String!
+  isAvailable: Boolean
+  start: String!
+}
+
+input WorkingHoursWorkingHoursUnavailableDayInput {
+  date: String!
+  isClosed: Boolean!
+  timeSlots: [WorkingHoursTimeSlotInput!]
+}
